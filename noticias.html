@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Noticias — PANORAMA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-top">
+    <div>
+      <div class="brand">PANORAMA<span>.</span></div>
+      <div class="brand-tag">Noticias educativas, tecnológicas, turísticas y comerciales</div>
+    </div>
+    <div class="today" id="fecha-hoy"></div>
+  </div>
+  <div class="container">
+    <nav class="main-nav">
+      <a href="index.html">Inicio</a>
+      <a href="noticias.html" aria-current="page">Noticias</a>
+      <a href="favoritos.html">Favoritos</a>
+      <a href="contacto.html">Contacto</a>
+      <a href="noticias.html#nueva">Publicar</a>
+    </nav>
+  </div>
+</header>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <h2>Catálogo de noticias</h2>
+      <p>Filtra por categoría para encontrar lo que buscas.</p>
+    </div>
+
+    <div class="filters" id="filtros">
+      <button data-cat="todas" class="active">Todas</button>
+      <button data-cat="educativas">Educación</button>
+      <button data-cat="tecnologicas">Tecnología</button>
+      <button data-cat="turisticas">Turismo</button>
+      <button data-cat="comerciales">Comercio</button>
+    </div>
+
+    <div class="grid-cards" id="lista-noticias"></div>
+  </div>
+</section>
+
+<section class="section" id="nueva" style="background: var(--paper-soft);">
+  <div class="container">
+    <div class="section-head">
+      <h2>Publicar una noticia</h2>
+      <p>Panel simple de administración (crear / eliminar) para fines académicos.</p>
+    </div>
+
+    <form class="form-card" id="form-noticia" novalidate>
+      <div class="alert" id="alerta-noticia">Noticia publicada correctamente.</div>
+
+      <div class="field">
+        <label for="titulo">Título</label>
+        <input type="text" id="titulo" name="titulo" placeholder="Título de la noticia">
+        <span class="error">Escribe un título.</span>
+      </div>
+
+      <div class="field">
+        <label for="categoria">Categoría</label>
+        <select id="categoria" name="categoria">
+          <option value="educativas">Educación</option>
+          <option value="tecnologicas">Tecnología</option>
+          <option value="turisticas">Turismo</option>
+          <option value="comerciales">Comercio</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="breve">Descripción breve</label>
+        <input type="text" id="breve" name="breve" placeholder="Resumen corto (aparece en la tarjeta)">
+        <span class="error">Escribe una descripción breve.</span>
+      </div>
+
+      <div class="field">
+        <label for="completa">Descripción completa</label>
+        <textarea id="completa" name="completa" placeholder="Contenido completo de la noticia"></textarea>
+        <span class="error">Escribe la descripción completa.</span>
+      </div>
+
+      <div class="field">
+        <label for="imagen">URL de imagen (opcional)</label>
+        <input type="text" id="imagen" name="imagen" placeholder="https://...">
+      </div>
+
+      <button type="submit" class="btn btn-primary">Publicar noticia</button>
+    </form>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <h4>PANORAMA</h4>
+      <p>Plataforma web informativa desarrollada como proyecto académico del módulo de Desarrollo Front-end.</p>
+    </div>
+    <div>
+      <h4>Navegación</h4>
+      <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="noticias.html">Noticias</a></li>
+        <li><a href="favoritos.html">Favoritos</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Contacto</h4>
+      <ul>
+        <li>contacto@panorama-news.com</li>
+        <li>+57 300 000 0000</li>
+        <li>Medellín, Colombia</li>
+      </ul>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <span>© 2026 PANORAMA. Proyecto académico.</span>
+    <span>Desarrollado con HTML, CSS y JavaScript</span>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script>
+  function pintar(categoria) {
+    const todas = obtenerNoticias();
+    const filtradas = categoria === "todas" ? todas : todas.filter(n => n.categoria === categoria);
+    renderizarLista("lista-noticias", filtradas);
+    agregarBotonesEliminar();
+  }
+
+  function agregarBotonesEliminar() {
+    document.querySelectorAll("#lista-noticias .card").forEach(card => {
+      const footer = card.querySelector(".card-footer");
+      if (footer.querySelector(".btn-eliminar")) return;
+      const btn = document.createElement("button");
+      btn.textContent = "Eliminar";
+      btn.className = "btn btn-small btn-danger btn-eliminar";
+      btn.style.marginLeft = "8px";
+      btn.addEventListener("click", () => {
+        if (confirm("¿Eliminar esta noticia?")) {
+          eliminarNoticia(card.dataset.id);
+          const activo = document.querySelector("#filtros button.active").dataset.cat;
+          pintar(activo);
+        }
+      });
+      footer.appendChild(btn);
+    });
+  }
+
+  document.querySelectorAll("#filtros button").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll("#filtros button").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      pintar(btn.dataset.cat);
+    });
+  });
+
+  // Los datos base se leen del JSON antes de pintar el listado
+  cargarNoticias().then(() => pintar("todas"));
+
+  // Mini CRUD: crear noticia
+  const form = document.getElementById("form-noticia");
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const titulo = document.getElementById("titulo");
+    const breve = document.getElementById("breve");
+    const completa = document.getElementById("completa");
+
+    const okTitulo = validarCampo(titulo, v => v.length > 3, "El título debe tener al menos 4 caracteres.");
+    const okBreve = validarCampo(breve, v => v.length > 5, "Escribe una descripción breve válida.");
+    const okCompleta = validarCampo(completa, v => v.length > 10, "La descripción completa es muy corta.");
+
+    if (!okTitulo || !okBreve || !okCompleta) return;
+
+    crearNoticia({
+      titulo: titulo.value.trim(),
+      categoria: document.getElementById("categoria").value,
+      descripcionBreve: breve.value.trim(),
+      descripcionCompleta: completa.value.trim(),
+      imagen: document.getElementById("imagen").value.trim()
+    });
+
+    document.getElementById("alerta-noticia").classList.add("show");
+    form.reset();
+    pintar(document.querySelector("#filtros button.active").dataset.cat);
+    setTimeout(() => document.getElementById("alerta-noticia").classList.remove("show"), 4000);
+  });
+</script>
+</body>
+</html>

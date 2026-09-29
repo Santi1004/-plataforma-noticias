@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contacto — PANORAMA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-top">
+    <div>
+      <div class="brand">PANORAMA<span>.</span></div>
+      <div class="brand-tag">Noticias educativas, tecnológicas, turísticas y comerciales</div>
+    </div>
+    <div class="today" id="fecha-hoy"></div>
+  </div>
+  <div class="container">
+    <nav class="main-nav">
+      <a href="index.html">Inicio</a>
+      <a href="noticias.html">Noticias</a>
+      <a href="favoritos.html">Favoritos</a>
+      <a href="contacto.html" aria-current="page">Contacto</a>
+      <a href="noticias.html#nueva">Publicar</a>
+    </nav>
+  </div>
+</header>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <h2>Contáctanos</h2>
+      <p>¿Tienes una historia, sugerencia o comentario? Escríbenos.</p>
+    </div>
+
+    <form class="form-card" id="form-contacto" novalidate>
+      <div class="alert" id="alerta-contacto">¡Gracias! Tu mensaje ha sido enviado correctamente.</div>
+
+      <div class="field">
+        <label for="nombre">Nombre completo</label>
+        <input type="text" id="nombre" name="nombre" placeholder="Tu nombre">
+        <span class="error">Escribe tu nombre.</span>
+      </div>
+
+      <div class="field">
+        <label for="email">Correo electrónico</label>
+        <input type="text" id="email" name="email" placeholder="tucorreo@ejemplo.com">
+        <span class="error">Escribe un correo electrónico válido.</span>
+      </div>
+
+      <div class="field">
+        <label for="mensaje">Mensaje</label>
+        <textarea id="mensaje" name="mensaje" placeholder="Escribe tu mensaje"></textarea>
+        <span class="error">El mensaje debe tener al menos 10 caracteres.</span>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Enviar mensaje</button>
+    </form>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <h4>PANORAMA</h4>
+      <p>Plataforma web informativa desarrollada como proyecto académico del módulo de Desarrollo Front-end.</p>
+    </div>
+    <div>
+      <h4>Navegación</h4>
+      <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="noticias.html">Noticias</a></li>
+        <li><a href="favoritos.html">Favoritos</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Contacto</h4>
+      <ul>
+        <li>contacto@panorama-news.com</li>
+        <li>+57 300 000 0000</li>
+        <li>Medellín, Colombia</li>
+      </ul>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <span>© 2026 PANORAMA. Proyecto académico.</span>
+    <span>Desarrollado con HTML, CSS y JavaScript</span>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script>
+  const form = document.getElementById("form-contacto");
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const nombre = document.getElementById("nombre");
+    const email = document.getElementById("email");
+    const mensaje = document.getElementById("mensaje");
+
+    const okNombre = validarCampo(nombre, v => v.length > 2, "Escribe tu nombre completo.");
+    const okEmail = validarCampo(email, v => REGEX_EMAIL.test(v), "Escribe un correo electrónico válido.");
+    const okMensaje = validarCampo(mensaje, v => v.length >= 10, "El mensaje debe tener al menos 10 caracteres.");
+
+    if (!okNombre || !okEmail || !okMensaje) return;
+
+    document.getElementById("alerta-contacto").classList.add("show");
+    form.reset();
+    setTimeout(() => document.getElementById("alerta-contacto").classList.remove("show"), 4000);
+  });
+</script>
+</body>
+</html>

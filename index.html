@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PANORAMA — Plataforma de noticias</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-top">
+    <div>
+      <div class="brand">PANORAMA<span>.</span></div>
+      <div class="brand-tag">Noticias educativas, tecnológicas, turísticas y comerciales</div>
+    </div>
+    <div class="today" id="fecha-hoy"></div>
+  </div>
+  <div class="container">
+    <nav class="main-nav">
+      <a href="index.html" aria-current="page">Inicio</a>
+      <a href="noticias.html">Noticias</a>
+      <a href="favoritos.html">Favoritos</a>
+      <a href="contacto.html">Contacto</a>
+      <a href="noticias.html#nueva">Publicar</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <div class="hero-text">
+      <div class="hero-eyebrow">Portada</div>
+      <h1>Lo que necesitas saber, en un solo lugar.</h1>
+      <p>PANORAMA reúne noticias educativas, tecnológicas, turísticas y comerciales, pensadas para que explores, guardes tus favoritas y estés siempre informado.</p>
+      <div class="hero-actions">
+        <a href="noticias.html" class="btn btn-primary">Explorar noticias</a>
+        <a href="contacto.html" class="btn btn-ghost">Contáctanos</a>
+      </div>
+    </div>
+    <div class="hero-figure">
+      <img src="https://images.unsplash.com/photo-1495020689067-958852a7765e?w=900&q=80" alt="Sala de redacción de noticias">
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <h2>Noticias destacadas</h2>
+      <p>Una selección de las historias más recientes.</p>
+    </div>
+    <div class="grid-cards" id="destacados"></div>
+  </div>
+</section>
+
+<section class="section" style="background: var(--paper-soft);">
+  <div class="container">
+    <div class="section-head">
+      <h2>Por qué leer PANORAMA</h2>
+    </div>
+    <div class="info-strip">
+      <div class="item">
+        <h3>Contenido variado</h3>
+        <p>Educación, tecnología, turismo y comercio en un solo espacio, sin ruido innecesario.</p>
+      </div>
+      <div class="item">
+        <h3>Guarda lo que te interesa</h3>
+        <p>Marca tus noticias favoritas y encuéntralas fácilmente cuando quieras volver a leerlas.</p>
+      </div>
+      <div class="item">
+        <h3>Participa</h3>
+        <p>Escríbenos o comparte una noticia desde el panel de publicación de la sección Noticias.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container" style="text-align:center;">
+    <h2>¿Tienes una historia para contar?</h2>
+    <p style="color:var(--gray); max-width:52ch; margin: 10px auto 22px;">Escríbenos desde la página de contacto y cuéntanos qué te gustaría ver en PANORAMA.</p>
+    <a href="contacto.html" class="btn btn-primary">Ir a contacto</a>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <h4>PANORAMA</h4>
+      <p>Plataforma web informativa desarrollada como proyecto académico del módulo de Desarrollo Front-end.</p>
+    </div>
+    <div>
+      <h4>Navegación</h4>
+      <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="noticias.html">Noticias</a></li>
+        <li><a href="favoritos.html">Favoritos</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Contacto</h4>
+      <ul>
+        <li>contacto@panorama-news.com</li>
+        <li>+57 300 000 0000</li>
+        <li>Medellín, Colombia</li>
+      </ul>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <span>© 2026 PANORAMA. Proyecto académico.</span>
+    <span>Desarrollado con HTML, CSS y JavaScript</span>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script>
+  cargarNoticias().then(() => {
+    renderizarLista("destacados", obtenerNoticias().slice(0, 3));
+  });
+</script>
+</body>
+</html>

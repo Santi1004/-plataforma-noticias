@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Detalle de la noticia — PANORAMA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-top">
+    <div>
+      <div class="brand">PANORAMA<span>.</span></div>
+      <div class="brand-tag">Noticias educativas, tecnológicas, turísticas y comerciales</div>
+    </div>
+    <div class="today" id="fecha-hoy"></div>
+  </div>
+  <div class="container">
+    <nav class="main-nav">
+      <a href="index.html">Inicio</a>
+      <a href="noticias.html">Noticias</a>
+      <a href="favoritos.html">Favoritos</a>
+      <a href="contacto.html">Contacto</a>
+      <a href="noticias.html#nueva">Publicar</a>
+    </nav>
+  </div>
+</header>
+
+<section class="section" id="contenido-detalle">
+  <!-- Se rellena por JavaScript -->
+</section>
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <h4>PANORAMA</h4>
+      <p>Plataforma web informativa desarrollada como proyecto académico del módulo de Desarrollo Front-end.</p>
+    </div>
+    <div>
+      <h4>Navegación</h4>
+      <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="noticias.html">Noticias</a></li>
+        <li><a href="favoritos.html">Favoritos</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Contacto</h4>
+      <ul>
+        <li>contacto@panorama-news.com</li>
+        <li>+57 300 000 0000</li>
+        <li>Medellín, Colombia</li>
+      </ul>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <span>© 2026 PANORAMA. Proyecto académico.</span>
+    <span>Desarrollado con HTML, CSS y JavaScript</span>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script>
+  cargarNoticias().then(() => {
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("id");
+    const noticia = obtenerNoticiaPorId(id);
+    const contenedor = document.getElementById("contenido-detalle");
+
+    if (!noticia) {
+      contenedor.innerHTML = `
+        <div class="container">
+          <div class="empty-state">
+            <h2>Noticia no encontrada</h2>
+            <p>Puede que haya sido eliminada.</p>
+            <a href="noticias.html" class="btn btn-primary" style="margin-top:14px;">Volver a noticias</a>
+          </div>
+        </div>`;
+      return;
+    }
+
+    contenedor.innerHTML = `
+      <div class="container detail-header">
+        <span class="card-cat">${escaparHTML(CATEGORIAS[noticia.categoria] || noticia.categoria)}</span>
+        <h1>${escaparHTML(noticia.titulo)}</h1>
+        <div class="detail-meta">Publicado el ${formatearFecha(noticia.fecha)}</div>
+      </div>
+      <div class="container">
+        <div class="detail-figure">
+          <img src="${escaparHTML(noticia.imagen)}" alt="${escaparHTML(noticia.titulo)}">
+        </div>
+        <div class="detail-body">
+          <p>${escaparHTML(noticia.descripcionCompleta)}</p>
+        </div>
+        <div class="detail-actions">
+          <button class="btn btn-primary" id="btn-favorito"></button>
+          <a href="contacto.html" class="btn btn-ghost">Contactar sobre esta noticia</a>
+          <a href="noticias.html" class="btn btn-ghost">Volver al listado</a>
+        </div>
+      </div>
+    `;
+
+    const btnFav = document.getElementById("btn-favorito");
+    function pintarBoton() {
+      btnFav.textContent = esFavorito(noticia.id) ? "★ Quitar de favoritos" : "☆ Agregar a favoritos";
+    }
+    pintarBoton();
+    btnFav.addEventListener("click", () => {
+      alternarFavorito(noticia.id);
+      pintarBoton();
+    });
+  });
+</script>
+</body>
+</html>
