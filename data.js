@@ -14,14 +14,14 @@ const NOTICIAS_BASE = [
     imagen: "https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=800&q=80",
     fecha: "2026-08-02"
   },
-  {
-          id: 2,
-    categoria: "educativas",
-    titulo: "Nuevo programa de becas para estudiantes de último semestre",
-    descripcionBreve: "Un fondo educativo ofrecerá apoyo económico a estudiantes que estén cerca de graduarse.",
-    descripcionCompleta: "El programa está dirigido a estudiantes de últimos semestres de carreras técnicas y profesionales que demuestren buen rendimiento académico. Las becas cubrirán parte de la matrícula y materiales de estudio. Los interesados deberán presentar su hoja de vida académica y una carta de motivación antes de que finalice el semestre.",
-    imagen: "https://images.unsplash.com/photo-1761781342506-821be95168c5?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8Z3JhZHVhY2lvbnxlbnwwfHwwfHx8MA%3D%3D",
-    fecha: "2026-07-20"
+    {
+    "id": 2,
+    "categoria": "educativas",
+    "titulo": "Nuevo programa de becas para estudiantes de último semestre",
+    "descripcionBreve": "Un fondo educativo ofrecerá apoyo económico a estudiantes que estén cerca de graduarse.",
+    "descripcionCompleta": "El programa está dirigido a estudiantes de últimos semestres de carreras técnicas y profesionales que demuestren buen rendimiento académico. Las becas cubrirán parte de la matrícula y materiales de estudio. Los interesados deberán presentar su hoja de vida académica y una carta de motivación antes de que finalice el semestre.",
+    "imagen": "https://images.unsplash.com/photo-1761781342506-821be95168c5?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8Z3JhZHVhY2lvbnxlbnwwfHwwfHx8MA%3D%3D",
+    "fecha": "2026-07-20"
   },
   {
     id: 3,
